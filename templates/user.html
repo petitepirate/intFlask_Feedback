@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user.username}}{% endblock %}
+{% block navbar %}
+{% if 'username' in session %}
+
+<button><a href="/users/logout" id="logout">Log Out</a></button>
+{% endif %}
+
+{% endblock %}
+{% block content %}
+
+{% if 'username' in session %}
+
+
+<h1>{{user.username}}</h1>
+
+<p>Email: {{user.email}}</p>
+
+<p>Name: {{user.first_name}}  {{user.last_name}}</p>
+
+<form action="/users/{{user.username}}/delete" method="POST">
+  <button>Delete User</button>
+</form>
+
+
+<h1>Feedback</h1>
+
+{% for f in feedback if f %}
+
+<p>Title: {{f.title}}</p>
+<p>Content: {{f.content}}</p>
+<a href="/feedback/{{f.id}}/update"><button>Edit Feedback</button></a>
+<form action="/feedback/{{f.id}}/delete" method="POST">
+  <button>Delete Feedback</button>
+</form>
+
+{% endfor %}
+<br>
+<br>
+<button><a href="/users/{{user.username}}/feedback/add">Add Feedback</a></button>
+
+{% endif %}
+
+{% endblock %}

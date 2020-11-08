@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Feedback</h1>
+
+
+{% if edit_mode %}
+<form action="/feedback/{{id}}/update" method="POST">
+  {% include 'logic.html' %} 
+  <button type="submit">Update</button>
+{% else %}
+<form method="POST">
+  {% include 'logic.html' %} 
+  <button type="submit">Add</button>
+{% endif %}
+
+</form>
+
+{% endblock %}
